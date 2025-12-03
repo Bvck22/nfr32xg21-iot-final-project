@@ -376,6 +376,16 @@
 			<locationURI>STUDIO_SDK_LOC/platform/driver/debug/src/sl_debug_swo.c</locationURI>
 		</link>
 		<link>
+			<name>simplicity_sdk_2024.6.2/platform/driver/i2cspm/inc/sl_i2cspm.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/driver/i2cspm/inc/sl_i2cspm.h</locationURI>
+		</link>
+		<link>
+			<name>simplicity_sdk_2024.6.2/platform/driver/i2cspm/src/sl_i2cspm.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/driver/i2cspm/src/sl_i2cspm.c</locationURI>
+		</link>
+		<link>
 			<name>simplicity_sdk_2024.6.2/platform/emdrv/common/inc/ecode.h</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/platform/emdrv/common/inc/ecode.h</locationURI>

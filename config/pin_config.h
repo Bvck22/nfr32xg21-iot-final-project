@@ -88,6 +88,22 @@
 // [USART2]$
 
 // $[I2C1]
+// I2C1 SCL on PC05
+#ifndef I2C1_SCL_PORT                           
+#define I2C1_SCL_PORT                            gpioPortC
+#endif
+#ifndef I2C1_SCL_PIN                            
+#define I2C1_SCL_PIN                             5
+#endif
+
+// I2C1 SDA on PC04
+#ifndef I2C1_SDA_PORT                           
+#define I2C1_SDA_PORT                            gpioPortC
+#endif
+#ifndef I2C1_SDA_PIN                            
+#define I2C1_SDA_PIN                             4
+#endif
+
 // [I2C1]$
 
 // $[LETIMER0]

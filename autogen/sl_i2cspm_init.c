@@ -32,8 +32,9 @@
 #include "sl_clock_manager.h"
 // Include instance config 
 #include "sl_i2cspm_inst_config.h"
+#include "sl_i2cspm_sensor_config.h"
 
-sl_i2cspm_t *sl_i2cspm_inst = SL_I2CSPM_INST_PERIPHERAL;
+sl_i2cspm_t *sl_i2cspm_sensor = SL_I2CSPM_SENSOR_PERIPHERAL;
 
 #if SL_I2CSPM_INST_SPEED_MODE == 0
 #define SL_I2CSPM_INST_HLR i2cClockHLRStandard
@@ -46,19 +47,31 @@ sl_i2cspm_t *sl_i2cspm_inst = SL_I2CSPM_INST_PERIPHERAL;
 #define SL_I2CSPM_INST_MAX_FREQ I2C_FREQ_FASTPLUS_MAX
 #endif
 
-I2CSPM_Init_TypeDef init_inst = { 
-  .port = SL_I2CSPM_INST_PERIPHERAL,
-  .sclPort = SL_I2CSPM_INST_SCL_PORT,
-  .sclPin = SL_I2CSPM_INST_SCL_PIN,
-  .sdaPort = SL_I2CSPM_INST_SDA_PORT,
-  .sdaPin = SL_I2CSPM_INST_SDA_PIN,
+#if SL_I2CSPM_SENSOR_SPEED_MODE == 0
+#define SL_I2CSPM_SENSOR_HLR i2cClockHLRStandard
+#define SL_I2CSPM_SENSOR_MAX_FREQ I2C_FREQ_STANDARD_MAX
+#elif SL_I2CSPM_SENSOR_SPEED_MODE == 1
+#define SL_I2CSPM_SENSOR_HLR i2cClockHLRAsymetric
+#define SL_I2CSPM_SENSOR_MAX_FREQ I2C_FREQ_FAST_MAX
+#elif SL_I2CSPM_SENSOR_SPEED_MODE == 2
+#define SL_I2CSPM_SENSOR_HLR i2cClockHLRFast
+#define SL_I2CSPM_SENSOR_MAX_FREQ I2C_FREQ_FASTPLUS_MAX
+#endif
+
+I2CSPM_Init_TypeDef init_sensor = { 
+  .port = SL_I2CSPM_SENSOR_PERIPHERAL,
+  .sclPort = SL_I2CSPM_SENSOR_SCL_PORT,
+  .sclPin = SL_I2CSPM_SENSOR_SCL_PIN,
+  .sdaPort = SL_I2CSPM_SENSOR_SDA_PORT,
+  .sdaPin = SL_I2CSPM_SENSOR_SDA_PIN,
   .i2cRefFreq = 0,
-  .i2cMaxFreq = SL_I2CSPM_INST_MAX_FREQ,
-  .i2cClhr = SL_I2CSPM_INST_HLR
+  .i2cMaxFreq = SL_I2CSPM_SENSOR_MAX_FREQ,
+  .i2cClhr = SL_I2CSPM_SENSOR_HLR
 };
 
 void sl_i2cspm_init_instances(void)
 {
   sl_clock_manager_enable_bus_clock(SL_BUS_CLOCK_GPIO);
-  I2CSPM_Init(&init_inst);
+
+  I2CSPM_Init(&init_sensor);
 }

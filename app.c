@@ -19,22 +19,32 @@
 #include "bsp_usart.h"
 #include "sl_sleeptimer.h"
 #include <stdio.h>
+#include "sl_i2cspm_instances.h"
 /***************************************************************************//**
  * Initialize application.
  ******************************************************************************/
 
+aht20_t h_aht20 = {
+  .i2c_inst = NULL,
+  .addr     = AHT20_I2C_ADDR
+};
 
 void app_init(void)
 {
+  h_aht20.i2c_inst = sl_i2cspm_sensor;
   //aht20_err_t err = aht20_init();
   bsp_usart_init();
-  bsp_usart_print("me may beo 123");
-  if (aht20_init(AHT20_I2C_ADDR)) {
-          bsp_usart_print("AHT20 Init Success!\n");
-      } else {
-          bsp_usart_print("AHT20 Init cc!\n");
-          //printf("AHT20 Init Failed code: %d\n", err);
-      }
+  bsp_usart_print("\n Me may beo 123\n\r");
+  aht20_err_t err = aht20_init(&h_aht20);
+  char lmao[30];
+  sprintf(lmao, "\n Err: %d\n\r", err);
+  bsp_usart_print(lmao);
+  sl_sleeptimer_delay_millisecond(100);
+  float t, h;
+  aht20_read_data(&h_aht20, &t, &h);
+  char output[50];
+  sprintf(output, "T: %.2f\n", t);
+  bsp_usart_print(output);
 }
 
 /***************************************************************************//**
@@ -43,7 +53,7 @@ void app_init(void)
 void app_process_action(void)
 {
   float temperature, humidity;
-  char output;
+  char output[256];
       aht20_err_t err = bsp_aht20_read(&temperature, &humidity);
 
       if (err == AHT20_OK) {

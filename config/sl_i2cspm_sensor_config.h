@@ -28,33 +28,55 @@
  *
  ******************************************************************************/
 
-#ifndef SL_I2CSPM_INST_CONFIG_H
-#define SL_I2CSPM_INST_CONFIG_H
+#ifndef SL_I2CSPM_SENSOR_CONFIG_H
+#define SL_I2CSPM_SENSOR_CONFIG_H
 
 // <<< Use Configuration Wizard in Context Menu
 
 // <h>I2CSPM settings
 
-// <o SL_I2CSPM_INST_REFERENCE_CLOCK> Reference clock frequency
+// <o SL_I2CSPM_SENSOR_REFERENCE_CLOCK> Reference clock frequency
 // <i> Frequency in Hz of the reference clock.
 // <i> Select 0 to use the frequency of the currently selected clock.
 // <i> Default: 0
-#define SL_I2CSPM_INST_REFERENCE_CLOCK 0
+#define SL_I2CSPM_SENSOR_REFERENCE_CLOCK 0
 
-// <o SL_I2CSPM_INST_SPEED_MODE> Speed mode
+// <o SL_I2CSPM_SENSOR_SPEED_MODE> Speed mode
 // <0=> Standard mode (100kbit/s)
 // <1=> Fast mode (400kbit/s)
 // <2=> Fast mode plus (1Mbit/s)
 // <i> Default: 0
-#define SL_I2CSPM_INST_SPEED_MODE      0
+#define SL_I2CSPM_SENSOR_SPEED_MODE      1
 // </h> end I2CSPM config
 
 // <<< end of configuration section >>>
 
 // <<< sl:start pin_tool >>>
-// <i2c signal=SCL,SDA> SL_I2CSPM_INST
-// $[I2C_SL_I2CSPM_INST]
-// [I2C_SL_I2CSPM_INST]$
+// <i2c signal=SCL,SDA> SL_I2CSPM_SENSOR
+// $[I2C_SL_I2CSPM_SENSOR]
+#ifndef SL_I2CSPM_SENSOR_PERIPHERAL             
+#define SL_I2CSPM_SENSOR_PERIPHERAL              I2C1
+#endif
+#ifndef SL_I2CSPM_SENSOR_PERIPHERAL_NO          
+#define SL_I2CSPM_SENSOR_PERIPHERAL_NO           1
+#endif
+
+// I2C1 SCL on PD02
+#ifndef SL_I2CSPM_SENSOR_SCL_PORT               
+#define SL_I2CSPM_SENSOR_SCL_PORT                gpioPortD
+#endif
+#ifndef SL_I2CSPM_SENSOR_SCL_PIN                
+#define SL_I2CSPM_SENSOR_SCL_PIN                 2
+#endif
+
+// I2C1 SDA on PD03
+#ifndef SL_I2CSPM_SENSOR_SDA_PORT               
+#define SL_I2CSPM_SENSOR_SDA_PORT                gpioPortD
+#endif
+#ifndef SL_I2CSPM_SENSOR_SDA_PIN                
+#define SL_I2CSPM_SENSOR_SDA_PIN                 3
+#endif
+// [I2C_SL_I2CSPM_SENSOR]$
 // <<< sl:end pin_tool >>>
 
-#endif // SL_I2CSPM_INST_CONFIG_H
+#endif // SL_I2CSPM_SENSOR_CONFIG_H

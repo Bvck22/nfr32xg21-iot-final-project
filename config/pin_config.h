@@ -88,20 +88,20 @@
 // [USART2]$
 
 // $[I2C1]
-// I2C1 SCL on PC05
+// I2C1 SCL on PD02
 #ifndef I2C1_SCL_PORT                           
-#define I2C1_SCL_PORT                            gpioPortC
+#define I2C1_SCL_PORT                            gpioPortD
 #endif
 #ifndef I2C1_SCL_PIN                            
-#define I2C1_SCL_PIN                             5
+#define I2C1_SCL_PIN                             2
 #endif
 
-// I2C1 SDA on PC04
+// I2C1 SDA on PD03
 #ifndef I2C1_SDA_PORT                           
-#define I2C1_SDA_PORT                            gpioPortC
+#define I2C1_SDA_PORT                            gpioPortD
 #endif
 #ifndef I2C1_SDA_PIN                            
-#define I2C1_SDA_PIN                             4
+#define I2C1_SDA_PIN                             3
 #endif
 
 // [I2C1]$

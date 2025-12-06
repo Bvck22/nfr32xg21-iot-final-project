@@ -60,7 +60,18 @@ app.o: ../app.c \
  d:\gecko_sdk\simplicity_sdk_5\platform\common\inc\sl_common.h \
  d:\gecko_sdk\simplicity_sdk_5\platform\common\inc\sl_assert.h \
  d:\gecko_sdk\simplicity_sdk_5\platform\common\inc\sl_enum.h \
- d:\gecko_sdk\simplicity_sdk_5\platform\emlib\inc\em_i2c.h
+ d:\gecko_sdk\simplicity_sdk_5\platform\emlib\inc\em_i2c.h ../app.h \
+ D:\report\TH\ IoT\DoAn\Final\FInal_project\bsp/bsp_aht20.h \
+ D:\report\TH\ IoT\DoAn\Final\FInal_project\driver/aht20.h \
+ D:\report\TH\ IoT\DoAn\Final\FInal_project\bsp/bsp_usart.h \
+ d:\gecko_sdk\simplicity_sdk_5\platform\emlib\inc\em_usart.h \
+ d:\gecko_sdk\simplicity_sdk_5\platform\emlib\inc\em_cmu.h \
+ d:\gecko_sdk\simplicity_sdk_5\platform\emlib\inc\em_cmu_compat.h \
+ d:\gecko_sdk\simplicity_sdk_5\platform\emlib\inc\em_gpio.h \
+ d:\gecko_sdk\simplicity_sdk_5\platform\emlib\inc\sli_em_cmu.h \
+ d:\gecko_sdk\simplicity_sdk_5\platform\service\sleeptimer\inc\sl_sleeptimer.h \
+ d:\gecko_sdk\simplicity_sdk_5\platform\common\inc\sl_code_classification.h \
+ D:\report\TH\ IoT\DoAn\Final\FInal_project\autogen/sl_i2cspm_instances.h
 d:\gecko_sdk\simplicity_sdk_5\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 D:\report\TH\ IoT\DoAn\Final\FInal_project\driver\aht20.h:
 d:\gecko_sdk\simplicity_sdk_5\platform\driver\i2cspm\inc\sl_i2cspm.h:
@@ -123,3 +134,15 @@ d:\gecko_sdk\simplicity_sdk_5\platform\common\inc\sl_common.h:
 d:\gecko_sdk\simplicity_sdk_5\platform\common\inc\sl_assert.h:
 d:\gecko_sdk\simplicity_sdk_5\platform\common\inc\sl_enum.h:
 d:\gecko_sdk\simplicity_sdk_5\platform\emlib\inc\em_i2c.h:
+../app.h:
+D:\report\TH\ IoT\DoAn\Final\FInal_project\bsp/bsp_aht20.h:
+D:\report\TH\ IoT\DoAn\Final\FInal_project\driver/aht20.h:
+D:\report\TH\ IoT\DoAn\Final\FInal_project\bsp/bsp_usart.h:
+d:\gecko_sdk\simplicity_sdk_5\platform\emlib\inc\em_usart.h:
+d:\gecko_sdk\simplicity_sdk_5\platform\emlib\inc\em_cmu.h:
+d:\gecko_sdk\simplicity_sdk_5\platform\emlib\inc\em_cmu_compat.h:
+d:\gecko_sdk\simplicity_sdk_5\platform\emlib\inc\em_gpio.h:
+d:\gecko_sdk\simplicity_sdk_5\platform\emlib\inc\sli_em_cmu.h:
+d:\gecko_sdk\simplicity_sdk_5\platform\service\sleeptimer\inc\sl_sleeptimer.h:
+d:\gecko_sdk\simplicity_sdk_5\platform\common\inc\sl_code_classification.h:
+D:\report\TH\ IoT\DoAn\Final\FInal_project\autogen/sl_i2cspm_instances.h:

@@ -18,6 +18,7 @@ C_DEPS :=
 SUBDIRS := \
 . \
 autogen \
+bsp \
 driver \
 simplicity_sdk_2024.6.2/app/common/util/app_log \
 simplicity_sdk_2024.6.2/hardware/board/src \

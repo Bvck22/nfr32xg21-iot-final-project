@@ -65,8 +65,8 @@ aht20_err_t aht20_is_ready(aht20_t *me)
   seq.buf[0].data = NULL;
   seq.buf[0].len = 0;
 
-  I2C_TransferReturn_TypeDef ret = I2C_TransferInit(me->i2c_inst, &seq);
-  return (ret == i2cTransferDone) ? AHT20_OK : AHT20_ERR_COMM;
+  I2C_TransferReturn_TypeDef sta = I2CSPM_Transfer(me->i2c_inst, &seq);
+  return (sta == i2cTransferDone) ? AHT20_OK : AHT20_ERR_COMM;
 }
 
 aht20_err_t aht20_read_data(aht20_t *me, float *temperature, float *humidity)
@@ -101,29 +101,25 @@ aht20_err_t aht20_read_data(aht20_t *me, float *temperature, float *humidity)
 static aht20_err_t aht20_write(aht20_t *me, const uint8_t *data, uint16_t len)
 {
   I2C_TransferSeq_TypeDef seq;
-  seq.addr = me->addr;
+  seq.addr  = me->addr;             // ĐÃ là 8-bit, KHÔNG shift nữa
   seq.flags = I2C_FLAG_WRITE;
-  seq.buf[0].data = (uint8_t*)data;
-  seq.buf[0].len = len;
+  seq.buf[0].data = (uint8_t *) data;
+  seq.buf[0].len  = len;
 
-  // Using I2C_TransferInit directly allows generic I2C usage,
-  // sl_i2cspm wraps this usually but exposes setup.
-  I2C_TransferReturn_TypeDef ret = I2C_TransferInit(me->i2c_inst, &seq);
-
-  return (ret == i2cTransferDone) ? AHT20_OK : AHT20_ERR_COMM;
+  I2C_TransferReturn_TypeDef sta = I2CSPM_Transfer(me->i2c_inst, &seq);
+  return (sta == i2cTransferDone) ? AHT20_OK : AHT20_ERR_COMM;
 }
 
 static aht20_err_t aht20_read(aht20_t *me, uint8_t *data, uint16_t len)
 {
   I2C_TransferSeq_TypeDef seq;
-  seq.addr = me->addr;
+  seq.addr  = me->addr;            // KHÔNG shift thêm
   seq.flags = I2C_FLAG_READ;
   seq.buf[0].data = data;
-  seq.buf[0].len = len;
+  seq.buf[0].len  = len;
 
-  I2C_TransferReturn_TypeDef ret = I2C_TransferInit(me->i2c_inst, &seq);
-
-  return (ret == i2cTransferDone) ? AHT20_OK : AHT20_ERR_COMM;
+  I2C_TransferReturn_TypeDef sta = I2CSPM_Transfer(me->i2c_inst, &seq);
+  return (sta == i2cTransferDone) ? AHT20_OK : AHT20_ERR_COMM;
 }
 
 static aht20_err_t aht20_read_status(aht20_t *me, uint8_t *status)

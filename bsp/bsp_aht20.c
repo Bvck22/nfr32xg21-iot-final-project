@@ -6,7 +6,7 @@ static aht20_t aht20_handle;
 aht20_err_t bsp_aht20_init(void)
 {
 
-    aht20_handle.i2c_inst = sl_i2cspm_inst;
+    aht20_handle.i2c_inst = sl_i2cspm_sensor;
 
 
     aht20_handle.addr = AHT20_I2C_ADDR;

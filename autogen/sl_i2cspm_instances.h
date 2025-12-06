@@ -39,9 +39,11 @@ extern "C" {
 
 
 #define SL_I2CSPM_INST_PRESENT
+#define SL_I2CSPM_SENSOR_PRESENT
 
 
 extern sl_i2cspm_t *sl_i2cspm_inst;
+extern sl_i2cspm_t *sl_i2cspm_sensor;
 
 void sl_i2cspm_init_instances(void);
 

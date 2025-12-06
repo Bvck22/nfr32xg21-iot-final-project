@@ -34,7 +34,7 @@ component:
 - {id: device_init}
 - {id: emlib_i2c}
 - {id: emlib_usart}
-- instance: [inst]
+- instance: [inst, sensor]
   id: i2cspm
 - {id: iostream_usart_core}
 - {id: sl_system}

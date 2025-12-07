@@ -34,7 +34,6 @@
 #include "sl_i2cspm_inst_config.h"
 #include "sl_i2cspm_sensor_config.h"
 
-//sl_i2cspm_t *sl_i2cspm_inst = SL_I2CSPM_INST_PERIPHERAL;
 sl_i2cspm_t *sl_i2cspm_sensor = SL_I2CSPM_SENSOR_PERIPHERAL;
 
 #if SL_I2CSPM_INST_SPEED_MODE == 0

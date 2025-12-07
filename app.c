@@ -20,6 +20,11 @@
 #include "sl_sleeptimer.h"
 #include <stdio.h>
 #include "sl_i2cspm_instances.h"
+
+#include "sl_board_control.h"
+#include "em_assert.h"
+#include "glib.h"
+#include "dmd.h"
 /***************************************************************************//**
  * Initialize application.
  ******************************************************************************/
@@ -31,38 +36,30 @@ aht20_t h_aht20 = {
 
 void app_init(void)
 {
-  h_aht20.i2c_inst = sl_i2cspm_sensor;
+  //h_aht20.i2c_inst = sl_i2cspm_sensor;
   //aht20_err_t err = aht20_init();
+  memlcd_app_init();
   bsp_usart_init();
-  bsp_usart_print("\n Me may beo 123\n\r");
-  aht20_err_t err = aht20_init(&h_aht20);
-  char lmao[30];
-  sprintf(lmao, "\n Err: %d\n\r", err);
-  bsp_usart_print(lmao);
-  sl_sleeptimer_delay_millisecond(100);
-  float t, h;
-  aht20_read_data(&h_aht20, &t, &h);
-  char output[50];
-  sprintf(output, "T: %.2f\n", t);
-  bsp_usart_print(output);
+
+
 }
 
 /***************************************************************************//**
  * App ticking function.
  ******************************************************************************/
-void app_process_action(void)
+void app_process_action(int time)
 {
-  float temperature, humidity;
-  char output[256];
-      aht20_err_t err = bsp_aht20_read(&temperature, &humidity);
+    bsp_usart_print("\n Me may beo 123\n\r");
+    aht20_err_t err = bsp_aht20_init();
+    char lmao[30];
+    sprintf(lmao, "\n Err: %d\n\r", err);
+    bsp_usart_print(lmao);
+    float t, h;
+    bsp_aht20_read(&t, &h);
+    memlcd_app_process_action(&t, &h, time);
+    char output[50];
+    sprintf(output, "T: %d.%02d H: %d.%02d\n\r", (int)t,(int)((t - (int)t) * 100), (int)h, (int)((h - (int)h) * 100));
 
-      if (err == AHT20_OK) {
-
-          sprintf(output, "T: %.2f C, H: %.2f %%\n", temperature, humidity);
-          bsp_usart_print(output);
-      } else {
-          printf("Read Error\n");
-      }
-
-      sl_sleeptimer_delay_millisecond(1000);
+    bsp_usart_print(output);
+    sl_sleeptimer_delay_millisecond(time);
 }

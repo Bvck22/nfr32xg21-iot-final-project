@@ -26,6 +26,6 @@ void app_init(void);
 /***************************************************************************//**
  * App ticking function.
  ******************************************************************************/
-void app_process_action(void);
+void app_process_action(int time);
 
 #endif  // APP_H

@@ -26,6 +26,8 @@
 #include "sl_system_process_action.h"
 #endif // SL_CATALOG_KERNEL_PRESENT
 
+#include <app_lcd.h>
+
 int main(void)
 {
   // Initialize Silicon Labs device, system, service(s) and protocol stack(s).
@@ -37,6 +39,10 @@ int main(void)
   // task(s) if the kernel is present.
   app_init();
 
+  memlcd_app_init();
+
+  int count = 0;
+
 #if defined(SL_CATALOG_KERNEL_PRESENT)
   // Start the kernel. Task(s) created in app_init() will start running.
   sl_system_kernel_start();
@@ -47,7 +53,7 @@ int main(void)
     sl_system_process_action();
 
     // Application process.
-    app_process_action();
+    app_process_action(5000);
 
 #if defined(SL_CATALOG_POWER_MANAGER_PRESENT)
     // Let the CPU go to sleep if the system allows it.

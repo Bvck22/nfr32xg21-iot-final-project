@@ -29,7 +29,7 @@
 
  MEMORY
  {
-   FLASH      (rx)  : ORIGIN = 0x0, LENGTH = 0xfe000
+   FLASH      (rx)  : ORIGIN = 0x12000, LENGTH = 0xec000
    RAM        (rwx) : ORIGIN = 0x20000000, LENGTH = 0x18000
  }
 
@@ -71,19 +71,19 @@ SECTIONS
     __bss_start__ = .;
     *(SORT_BY_ALIGNMENT(.bss*))
     *(COMMON)
-    . = ALIGN(4);
+    . = ALIGN(32);
     __bss_end__ = .;
   } > RAM
 
   text_application_ram :
   {
-    . = ALIGN(4);
+    . = ALIGN(32);
     __vma_ramfuncs_start__ = .;
     __text_application_ram_start__ = .;
 
     *(text_application_ram)
 
-    . = ALIGN(4);
+    . = ALIGN(32);
     __vma_ramfuncs_end__ = .;
     __text_application_ram_end__ = .;
   } > RAM AT > FLASH
@@ -202,20 +202,20 @@ SECTIONS
     __data_end__ = .;
 
   } > RAM AT > FLASH
-  .heap (NOLOAD):
+  .memory_manager_heap (NOLOAD):
   {
     . = ALIGN(8);
     __HeapBase = .;
     __end__ = .;
     end = __end__;
     _end = __end__;
-    KEEP(*(.heap*))
+    KEEP(*(.memory_manager_heap*))
     __HeapLimit = ORIGIN(RAM) + LENGTH(RAM);
   } > RAM
 
   __heap_size = __HeapLimit - __HeapBase;
   __ram_end__ = 0x20000000 + 0x18000;
-  __main_flash_end__ = 0x0 + 0xfe000;
+  __main_flash_end__ = 0x12000 + 0xec000;
 
    /* This is where we handle flash storage blocks. We use dummy sections for finding the configured
    * block sizes and then "place" them at the end of flash when the size is known. */
@@ -240,4 +240,6 @@ SECTIONS
   ASSERT((linker_storage_begin >= (__etext + SIZEOF(.data))), "FLASH memory overflowed !")
 
 
+  app_flash_end = 0x12000 + 0xec000;
+  ASSERT( (linker_nvm_begin + SIZEOF(.nvm)) <= app_flash_end, "NVM3 is excessing the flash size !")
 }

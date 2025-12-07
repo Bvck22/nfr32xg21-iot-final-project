@@ -42,6 +42,7 @@ void bsp_usart_init(void) {
 
     // 6. Khởi tạo USART0 với cấu hình trên [cite: 461]
     USART_InitAsync(USART0, &init);
+
 }
 
 // Hàm gửi 1 ký tự sử dụng thư viện em_usart [cite: 463]
@@ -53,5 +54,46 @@ void bsp_usart_send_char(char c) {
 void bsp_usart_print(const char *str) {
     while (*str) {
         bsp_usart_send_char(*str++);
+    }
+}
+char bsp_usart_receive_char(void) {
+    return USART_Rx(USART0); // Hàm này của Silicon Labs tự động chờ (blocking)
+}
+void bsp_usart_read_line(char *buffer, uint32_t max_len) {
+    uint32_t index = 0;
+    char c;
+
+    // Xóa buffer trước khi dùng
+    memset(buffer, 0, max_len);
+
+    while (1) {
+        // Nhận 1 ký tự
+        c = bsp_usart_receive_char();
+
+        // [QUAN TRỌNG] Echo: Gửi lại ký tự lên màn hình để người dùng thấy mình gõ gì
+        bsp_usart_send_char(c);
+
+        // Kiểm tra ký tự Enter (\r hoặc \n)
+        if (c == '\r' || c == '\n') {
+            buffer[index] = '\0'; // Kết thúc chuỗi
+            bsp_usart_print("\r\n"); // Xuống dòng thẩm mỹ
+            return; // Thoát hàm
+        }
+        // Kiểm tra Backspace (xóa lùi - tùy chọn nâng cao cho terminal)
+        else if (c == '\b' || c == 127) {
+            if (index > 0) {
+                index--;
+                buffer[index] = '\0';
+                // Xóa hiển thị trên màn hình: Lùi lại, in khoảng trắng, lùi lại
+                bsp_usart_print("\b \b");
+            }
+        }
+        // Lưu ký tự vào buffer nếu còn chỗ
+        else {
+            if (index < (max_len - 1)) {
+                buffer[index] = c;
+                index++;
+            }
+        }
     }
 }

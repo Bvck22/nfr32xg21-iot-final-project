@@ -331,6 +331,7 @@
 		<project id="testbl.com.silabs.ss.framework.ide.project.core.cdt.cdtMbsProjectType.1724991120" name="SLS CDT Project" projectType="com.silabs.ss.framework.ide.project.core.cdt.cdtMbsProjectType"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		<scannerConfigBuildInfo instanceId="com.silabs.ss.framework.project.toolchain.core.default#com.silabs.ss.tool.ide.arm.toolchain.gnu.cdt:12.2.1.20221205;com.silabs.ss.framework.project.toolchain.core.default#com.silabs.ss.tool.ide.arm.toolchain.gnu.cdt:12.2.1.20221205.;com.silabs.ide.si32.gcc.cdt.managedbuild.tool.gnu.c.compiler.base.1364224802;com.silabs.ide.si32.gcc.cdt.managedbuild.tool.gnu.c.compiler.input.425848037">

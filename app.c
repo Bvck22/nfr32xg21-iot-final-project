@@ -36,8 +36,7 @@ aht20_t h_aht20 = {
 
 void app_init(void)
 {
-  //h_aht20.i2c_inst = sl_i2cspm_sensor;
-  //aht20_err_t err = aht20_init();
+
   memlcd_app_init();
   bsp_usart_init();
 
@@ -49,17 +48,10 @@ void app_init(void)
  ******************************************************************************/
 void app_process_action(int time)
 {
-    bsp_usart_print("\n Me may beo 123\n\r");
     aht20_err_t err = bsp_aht20_init();
-    char lmao[30];
-    sprintf(lmao, "\n Err: %d\n\r", err);
-    bsp_usart_print(lmao);
     float t, h;
     bsp_aht20_read(&t, &h);
     memlcd_app_process_action(&t, &h, time);
-    char output[50];
-    sprintf(output, "T: %d.%02d H: %d.%02d\n\r", (int)t,(int)((t - (int)t) * 100), (int)h, (int)((h - (int)h) * 100));
 
-    bsp_usart_print(output);
     sl_sleeptimer_delay_millisecond(time);
 }

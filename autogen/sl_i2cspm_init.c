@@ -34,19 +34,7 @@
 #include "sl_i2cspm_inst_config.h"
 #include "sl_i2cspm_sensor_config.h"
 
-//sl_i2cspm_t *sl_i2cspm_inst = SL_I2CSPM_INST_PERIPHERAL;
 sl_i2cspm_t *sl_i2cspm_sensor = SL_I2CSPM_SENSOR_PERIPHERAL;
-
-#if SL_I2CSPM_INST_SPEED_MODE == 0
-#define SL_I2CSPM_INST_HLR i2cClockHLRStandard
-#define SL_I2CSPM_INST_MAX_FREQ I2C_FREQ_STANDARD_MAX
-#elif SL_I2CSPM_INST_SPEED_MODE == 1
-#define SL_I2CSPM_INST_HLR i2cClockHLRAsymetric
-#define SL_I2CSPM_INST_MAX_FREQ I2C_FREQ_FAST_MAX
-#elif SL_I2CSPM_INST_SPEED_MODE == 2
-#define SL_I2CSPM_INST_HLR i2cClockHLRFast
-#define SL_I2CSPM_INST_MAX_FREQ I2C_FREQ_FASTPLUS_MAX
-#endif
 
 #if SL_I2CSPM_SENSOR_SPEED_MODE == 0
 #define SL_I2CSPM_SENSOR_HLR i2cClockHLRStandard

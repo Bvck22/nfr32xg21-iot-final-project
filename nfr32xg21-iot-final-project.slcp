@@ -1,6 +1,6 @@
 # Silicon Labs Project Configuration Tools: slcp, v0, Component selection file.
-project_name: FInal_project
-label: FInal_project
+project_name: nfr32xg21-iot-final-project
+label: nfr32xg21-iot-final-project
 description: |
   This example project shows an empty configuration that can be used as a starting point to add components and functionality.
 category: Example|Platform

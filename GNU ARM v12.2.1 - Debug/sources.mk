@@ -16,10 +16,11 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+BSP \
 . \
 autogen \
-bsp \
 driver \
+lcd \
 simplicity_sdk_2024.6.2/app/common/util/app_log \
 simplicity_sdk_2024.6.2/hardware/board/src \
 simplicity_sdk_2024.6.2/hardware/driver/configuration_over_swo/src \

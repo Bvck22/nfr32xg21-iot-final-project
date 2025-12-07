@@ -40,12 +40,14 @@
 
 CustomAdv_t sData; // Our custom advertising data stored here
 
+
 //This action creates a memory area for our "timer variable".
 static app_timer_t update_timer;
 
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
 
+ char my_input_buffer[100];
  int16_t cur_temp = 2550;
  uint8_t cur_hum =60;
 
@@ -78,17 +80,88 @@ SL_WEAK void app_init(void)
                              true);
   app_assert_status(sc);
 }
+void update_advertising_interval(int ms) {
+    sl_status_t sc;
 
+    // Giới hạn giá trị tối thiểu (Bluetooth thường yêu cầu > 20ms)
+    if (ms < 20) ms = 20;
+
+    // 1. Tính toán số Tick (1 Tick = 0.625ms => Ticks = ms * 1.6)
+    // Dùng phép nhân số nguyên: (ms * 16) / 10
+    uint32_t ticks = (ms * 16) / 10;
+
+    // 2. Dừng quảng bá trước khi thay đổi cấu hình
+    sc = sl_bt_advertiser_stop(advertising_set_handle);
+    // (Có thể kiểm tra sc nếu cần, nhưng thường thì cứ chạy tiếp)
+
+    // 3. Cài đặt thời gian mới
+    sc = sl_bt_advertiser_set_timing(
+        advertising_set_handle,
+        ticks, // min interval
+        ticks, // max interval
+        0,     // duration (0 = mãi mãi)
+        0);    // max events (0 = không giới hạn)
+    app_assert_status(sc);
+
+    // 4. Bắt đầu quảng bá lại
+    // Dùng hàm start_adv của bạn hoặc hàm gốc của SDK
+    // Ở đây mình dùng hàm gốc để đảm bảo nó chạy lại chế độ legacy
+    sc = sl_bt_legacy_advertiser_start(advertising_set_handle, sl_bt_advertiser_connectable_scannable);
+    app_assert_status(sc);
+
+    // In log báo cáo
+    app_log("Updated ADV Interval: %d ms (%lu ticks)\r\n", ms, ticks);
+}
 /**************************************************************************//**
  * Application Process Action.
  *****************************************************************************/
 SL_WEAK void app_process_action(void)
 {
-  /////////////////////////////////////////////////////////////////////////////
-  // Put your additional application code here!                              //
-  // This is called infinitely.                                              //
-  // Do not call blocking functions from here!                               //
-  /////////////////////////////////////////////////////////////////////////////
+
+      bsp_usart_print("User Input > ");
+
+
+              bsp_usart_read_line(my_input_buffer);
+              if (strncmp(my_input_buffer, "MEAS", 4) == 0) {
+                  // --- TRƯỜNG HỢP MEAS ---
+
+                  // Lấy giá trị số đi kèm.
+                  // &my_input_buffer[5] nghĩa là bỏ qua 5 ký tự đầu ("MEAS ") để lấy phần số "100"
+                  int value = atoi(&my_input_buffer[5]);
+
+                  // In ra để kiểm tra
+                  char msg[64];
+                  sprintf(msg, ">> Phat hien lenh MEAS. Gia tri: %d\r\n", value);
+                  bsp_usart_print(msg);
+
+                  // GỌI HÀM XỬ LÝ CỦA BẠN TẠI ĐÂY
+                  // Ví dụ: app_update_measurement_period(value);
+              }
+
+              // 2. Kiểm tra xem chuỗi có BẮT ĐẦU bằng chữ "ADV" không (so sánh 3 ký tự đầu)
+              else if (strncmp(my_input_buffer, "ADV", 3) == 0) {
+                  // --- TRƯỜNG HỢP ADV ---
+
+                  // &my_input_buffer[4] nghĩa là bỏ qua 4 ký tự đầu ("ADV ") để lấy phần số
+                  int value = atoi(&my_input_buffer[4]);
+
+                  // In ra để kiểm tra
+                  char msg[64];
+                  sprintf(msg, ">> Phat hien lenh ADV. Gia tri: %d\r\n", value);
+                  bsp_usart_print(msg);
+
+                  // GỌI HÀM XỬ LÝ CỦA BẠN TẠI ĐÂY
+                  update_advertising_interval(value);
+              }
+
+              // 3. Trường hợp lệnh không hợp lệ
+              else {
+                  bsp_usart_print(">> Lenh khong hop le (Unknown Command)\r\n");
+              }
+              bsp_usart_print(my_input_buffer);
+              // 5. Xử lý dữ liệu sau khi nhận xong
+              // Ở đây mình in lại nội dung vừa nhận kèm độ dài (giống file mẫu của bạn)
+              char output_msg[128];
 
 }
 

@@ -52,7 +52,7 @@ int main(void)
   // Initialize the application. For example, create periodic timer(s) or
   // task(s) if the kernel is present.
   app_init();
-  char my_input_buffer[100];
+
 #if defined(SL_CATALOG_KERNEL_PRESENT)
   // Start the kernel. Task(s) created in app_init() will start running.
   sl_system_kernel_start();
@@ -64,50 +64,7 @@ int main(void)
 
     // Application process.
     app_process_action();
-    bsp_usart_print("User Input > ");
 
-
-            bsp_usart_read_line(my_input_buffer);
-            if (strncmp(my_input_buffer, "MEAS", 4) == 0) {
-                // --- TRƯỜNG HỢP MEAS ---
-
-                // Lấy giá trị số đi kèm.
-                // &my_input_buffer[5] nghĩa là bỏ qua 5 ký tự đầu ("MEAS ") để lấy phần số "100"
-                int value = atoi(&my_input_buffer[5]);
-
-                // In ra để kiểm tra
-                char msg[64];
-                sprintf(msg, ">> Phat hien lenh MEAS. Gia tri: %d\r\n", value);
-                bsp_usart_print(msg);
-
-                // GỌI HÀM XỬ LÝ CỦA BẠN TẠI ĐÂY
-                // Ví dụ: app_update_measurement_period(value);
-            }
-
-            // 2. Kiểm tra xem chuỗi có BẮT ĐẦU bằng chữ "ADV" không (so sánh 3 ký tự đầu)
-            else if (strncmp(my_input_buffer, "ADV", 3) == 0) {
-                // --- TRƯỜNG HỢP ADV ---
-
-                // &my_input_buffer[4] nghĩa là bỏ qua 4 ký tự đầu ("ADV ") để lấy phần số
-                int value = atoi(&my_input_buffer[4]);
-
-                // In ra để kiểm tra
-                char msg[64];
-                sprintf(msg, ">> Phat hien lenh ADV. Gia tri: %d\r\n", value);
-                bsp_usart_print(msg);
-
-                // GỌI HÀM XỬ LÝ CỦA BẠN TẠI ĐÂY
-                // Ví dụ: app_update_advertising_period(value);
-            }
-
-            // 3. Trường hợp lệnh không hợp lệ
-            else {
-                bsp_usart_print(">> Lenh khong hop le (Unknown Command)\r\n");
-            }
-            bsp_usart_print(my_input_buffer);
-            // 5. Xử lý dữ liệu sau khi nhận xong
-            // Ở đây mình in lại nội dung vừa nhận kèm độ dài (giống file mẫu của bạn)
-            char output_msg[128];
 //            sprintf(output_msg, "EFR32 Received: '%s' (Length: %d)\r\n",
 //                    my_input_buffer,
 //                    strlen(my_input_buffer));

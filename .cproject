@@ -319,7 +319,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="image/readme_img0.png|image/readme_img1.png|image/readme_img2.png|image/readme_img3.png|image/readme_img4.png|simplicity_sdk_2024.6.2/protocol/bluetooth/api/sl_bt.xapi|create_bl_files.bat|create_bl_files.sh|create_bl_files.py|trashed_modified_files|testbl_cmake|testbl_iar_cmake" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="usart_on_pc.c|image/readme_img0.png|image/readme_img1.png|image/readme_img2.png|image/readme_img3.png|image/readme_img4.png|simplicity_sdk_2024.6.2/protocol/bluetooth/api/sl_bt.xapi|create_bl_files.bat|create_bl_files.sh|create_bl_files.py|trashed_modified_files|testbl_cmake|testbl_iar_cmake" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
